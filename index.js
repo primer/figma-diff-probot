@@ -20,6 +20,13 @@ module.exports = robot => {
       const newTitle = newMatch[2]
 
       console.log({ oldCode, oldTitle, newCode, newTitle })
+
+      // 1. Ask the Figma API for exports of old and new codes
+
+      // 2. Run pixelmatch, generate an image
+      // 2.1 Upload it somewhere to have a link for a GitHub comment
+
+      // 3. Comment on the PR with the diff image
     }
   })
 }
