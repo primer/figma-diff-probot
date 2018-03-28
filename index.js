@@ -6,8 +6,8 @@ module.exports = robot => {
       headers: { Accept: 'application/vnd.github.diff' }
     }))).data
 
-    const oldReg = /-.+"url":\s?"https:\/\/www\.figma\.com\/file\/(.+)\/(.+)/
-    const newReg = /\+.+"url":\s?"https:\/\/www\.figma\.com\/file\/(.+)\/(.+)/
+    const oldReg = /-.+"url":\s?"https:\/\/www\.figma\.com\/file\/(.+)\/(.+)"/
+    const newReg = /\+.+"url":\s?"https:\/\/www\.figma\.com\/file\/(.+)\/(.+)"/
 
     const oldMatch = oldReg.exec(diff)
     const newMatch = newReg.exec(diff)
