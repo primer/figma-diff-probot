@@ -1,10 +1,10 @@
 {
-  "name": "figmadiffer",
+  "name": "@github/figma-diff-probot",
+  "private": true,
   "version": "1.0.0",
   "description": "",
-  "author": "JasonEtco <jasonetco@gmail.com>",
-  "license": "ISC",
-  "repository": "https://github.com/JasonEtco/figmadiffer.git",
+  "license": "MIT",
+  "repository": "https://github.com/primer/figma-diff-probot.git",
   "scripts": {
     "start": "probot run ./index.js",
     "test": "jest && standard"
