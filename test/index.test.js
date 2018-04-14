@@ -69,4 +69,21 @@ describe('figma-diff-probot', () => {
     expect(github.issues.createComment).toHaveBeenCalled()
     expect(github.issues.createComment.mock.calls).toMatchSnapshot()
   })
+
+  it('does not create a comment if there are no differences', async () => {
+    nock.cleanAll()
+    nock('https://api.figma.com/v1')
+      .get(`/files/${BEFORE_KEY}`).reply(200, beforeFile)
+      .get(`/files/${AFTER_KEY}`).reply(200, beforeFile)
+      .get(`/images/${BEFORE_KEY}`).query({ ids: '0:400', format: 'svg' }).reply(200, beforeImages)
+      .get(`/images/${AFTER_KEY}`).query({ ids: '0:400', format: 'svg' }).reply(200, afterImages)
+
+    nock('https://images.com')
+      .get('/before').reply(200, '<svg>BEFORE</svg>')
+      .get('/after').reply(200, '<svg>BEFORE</svg>')
+
+    await robot.receive(event)
+
+    expect(github.issues.createComment).not.toHaveBeenCalled()
+  })
 })
