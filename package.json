@@ -7,7 +7,7 @@
   "repository": "https://github.com/primer/figma-diff-probot.git",
   "scripts": {
     "start": "probot run ./index.js",
-    "test": "echo ''"
+    "test": "jest && standard"
   },
   "dependencies": {
     "got": "^8.3.0",
@@ -15,6 +15,7 @@
   },
   "devDependencies": {
     "jest": "^21.2.1",
+    "nock": "^9.2.5",
     "smee-client": "^1.0.1",
     "standard": "^10.0.3"
   },
