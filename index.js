@@ -132,6 +132,10 @@ module.exports = robot => {
         }
       })
 
+      // Exit early if no components have changed
+      if (Object.keys(data.before.components).length === 0 ||
+      Object.keys(data.after.components).length === 0) return
+
       const params = context.issue({body: changeComment(data)})
 
       return context.github.issues.createComment(params)
