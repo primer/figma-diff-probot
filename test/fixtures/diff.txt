@@ -6,8 +6,8 @@ index 5459922..8a9929a 100644
      "release": "script/clean && script/export && $(npm bin)/lerna publish --exact --since \"v$(npm info octicons version)\""
    },
    "figma": {
--    "url": "https://www.figma.com/file/FP7lqd1V00LUaT5zvdklkkZr/Octicons"
-+    "url": "https://www.figma.com/file/bvk9lSbyES5QsUPBT2lrf1/Octicons-(Jon's-Changes)"
+-    "url": "https://www.figma.com/file/BEFORE_KEY/Octicons"
++    "url": "https://www.figma.com/file/AFTER_KEY/Octicons-(Jon's-Changes)"
    },
    "devDependencies": {
      "ava": "^0.22.0",
