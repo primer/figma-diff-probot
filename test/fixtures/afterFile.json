@@ -1,0 +1,103 @@
+{
+  "name": "Octicons - Fix heart icon",
+  "lastModified": "2018-03-24T01:16:21.444Z",
+  "thumbnailUrl": "https://s3-alpha.figma.com/img/3f85/7974/22a3f4160999cb8aae345e0026a1213a",
+  "document": {
+    "id": "0:0",
+    "name": "Document",
+    "type": "DOCUMENT",
+    "children": [
+      {
+        "id": "0:1",
+        "name": "Octicons",
+        "type": "CANVAS",
+        "children": [
+          {
+            "id": "0:400",
+            "name": "heart",
+            "type": "COMPONENT",
+            "blendMode": "PASS_THROUGH",
+            "children": [
+              {
+                "id": "0:399",
+                "name": "Shape",
+                "type": "VECTOR",
+                "blendMode": "PASS_THROUGH",
+                "absoluteBoundingBox": {
+                  "x": 370,
+                  "y": 78,
+                  "width": 12,
+                  "height": 11
+                },
+                "constraints": {
+                  "vertical": "SCALE",
+                  "horizontal": "SCALE"
+                },
+                "fills": [
+                  {
+                    "type": "SOLID",
+                    "blendMode": "NORMAL",
+                    "color": {
+                      "r": 0,
+                      "g": 0,
+                      "b": 0,
+                      "a": 1
+                    }
+                  }
+                ],
+                "strokes": [],
+                "strokeWeight": 0,
+                "strokeAlign": "CENTER",
+                "exportSettings": [],
+                "effects": []
+              }
+            ],
+            "absoluteBoundingBox": {
+              "x": 370,
+              "y": 76,
+              "width": 12,
+              "height": 16
+            },
+            "constraints": {
+              "vertical": "SCALE",
+              "horizontal": "SCALE"
+            },
+            "backgroundColor": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            },
+            "clipsContent": false,
+            "layoutGrids": [],
+            "exportSettings": [
+              {
+                "suffix": "",
+                "format": "SVG",
+                "constraint": {
+                  "type": "SCALE",
+                  "value": 1
+                }
+              }
+            ],
+            "effects": []
+          }
+       ],
+        "backgroundColor": {
+          "r": 1,
+          "g": 1,
+          "b": 1,
+          "a": 1
+        },
+        "exportSettings": []
+      }
+    ]
+  },
+  "components": {
+    "0:400": {
+      "name": "heart",
+      "description": "keywords: love, beat"
+    }
+  },
+  "schemaVersion": 0
+}
