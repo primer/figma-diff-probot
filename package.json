@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "got": "^8.3.0",
-    "probot": "^6.0.0"
+    "probot": "^6.1.0"
   },
   "devDependencies": {
     "jest": "^21.2.1",
