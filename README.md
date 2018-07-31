@@ -6,7 +6,7 @@
 
 ## Usage
 
-This probot is customized to work with [Octions](https://github.com/primer/octicons) to look for changes in the figma import url found in the octicons package.json.
+This probot is customized to work with [Octicons](https://github.com/primer/octicons) to look for changes in the figma import url found in the octicons package.json.
 
 When there is a change in the url, this bot will pull down images for the before and after files and generate a before and after image for any changed components.
 
