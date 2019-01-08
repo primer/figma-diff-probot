@@ -27,7 +27,8 @@ describe('figma-diff-probot', () => {
         get: jest.fn(() => Promise.resolve({ data: diff }))
       },
       issues: {
-        createComment: jest.fn()
+        createComment: jest.fn(),
+        listComments: jest.fn(() => Promise.resolve({ data: [] }))
       }
     }
 

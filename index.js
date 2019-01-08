@@ -1,4 +1,5 @@
 const got = require('got')
+const findExistingComment = require('./lib/find-existing-comment')
 
 const getFigmaComponents = (figmaFileKey) => {
   return new Promise((resolve, reject) => {
@@ -87,6 +88,18 @@ ${Object.values(data.before.components).map((b) => {
 }).join('\n')}`
 }
 
+async function createOrUpdateComment (context, params) {
+  const existingComment = await findExistingComment(context)
+  if (existingComment) {
+    return context.github.issues.editComment(context.issue({
+      comment_id: existingComment.id,
+      body: params.body
+    }))
+  } else {
+    return context.github.issues.createComment(params)
+  }
+}
+
 module.exports = robot => {
   // Will trigger whenever a new PR is opened or pushed to
   robot.on(['pull_request.opened', 'pull_request.synchronize'], async context => {
@@ -138,7 +151,7 @@ module.exports = robot => {
 
       const params = context.issue({body: changeComment(data)})
 
-      return context.github.issues.createComment(params)
+      return createOrUpdateComment(context, params)
     }
   })
 }

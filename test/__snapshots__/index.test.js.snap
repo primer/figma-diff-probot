@@ -4,7 +4,7 @@ exports[`figma-diff-probot creates a comment with a before and after image 1`] =
 Array [
   Array [
     Object {
-      "body": "
+      "body": "<!-- FIGMA DIFF PROBOT -->
 | Before | After |
 | :-- | :-- |
 | **Name:** \`heart\`<br>**Description:** \`keywords: love, beat\`  [<img src=\\"https://images.com/before\\" height=\\"200\\"/>](https://images.com/before) | **Name:** \`heart\`<br>**Description:** \`keywords: love, beat\`  [<img src=\\"https://images.com/after\\" height=\\"200\\"/>](https://images.com/after) |",
