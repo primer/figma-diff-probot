@@ -1,69 +1,43 @@
 const got = require('got')
 
-const getFigmaComponents = (figmaFileKey) => {
-  return new Promise((resolve, reject) => {
-    got.get(`https://api.figma.com/v1/files/${figmaFileKey}`, {
-      headers: { 'Content-Type': 'application/json', 'x-figma-token': process.env.FIGMA_TOKEN },
-      json: true
-    })
-    .then(response => {
-      let components = {}
-      const check = (c) => {
-        if (c.type === 'COMPONENT') {
-          components[c.id] = {
-            name: c.name,
-            id: c.id,
-            description: response.body.components[c.id].description,
-            raw: JSON.stringify(c)
-          }
-        } else if (c.children) {
-          c.children.forEach(check)
-        }
-      }
-      response.body.document.children.forEach(check)
-      return resolve(components)
-    })
-    .catch(err => {
-      reject(err)
-    })
+async function getFigmaComponents (figmaFileKey) {
+  const response = await got.get(`https://api.figma.com/v1/files/${figmaFileKey}`, {
+    headers: { 'Content-Type': 'application/json', 'x-figma-token': process.env.FIGMA_TOKEN },
+    json: true
   })
+
+  let components = {}
+  const check = (c) => {
+    if (c.type === 'COMPONENT') {
+      components[c.id] = {
+        name: c.name,
+        id: c.id,
+        description: response.body.components[c.id].description,
+        raw: JSON.stringify(c)
+      }
+    } else if (c.children) {
+      c.children.forEach(check)
+    }
+  }
+  response.body.document.children.forEach(check)
+  return components
 }
 
-const getFigmaImages = (figmaFileKey, componentIds) => {
-  return new Promise((resolve, reject) => {
-    got.get(`https://api.figma.com/v1/images/${figmaFileKey}`, {
-      query: {
-        ids: componentIds,
-        format: 'svg'
-      },
-      headers: { 'Content-Type': 'application/json', 'x-figma-token': process.env.FIGMA_TOKEN },
-      json: true
-    })
-    .then(response => {
-      if (response.body.err) {
-        reject(response.body.err)
-      } else {
-        return (response.body.images)
-      }
-    })
-    .then(images => {
-      resolve(
-        Promise.all(Object.keys(images).map(k => {
-          const url = images[k]
-          return got.get(url, {
-            headers: { 'Content-Type': 'images/svg+xml' }
-          }).then(response => {
-            return {
-              'url': url,
-              'id': k,
-              'raw': response.body
-            }
-          })
-        }))
-      )
-    })
-    .catch(err => reject(err))
+async function getFigmaImages (figmaFileKey, componentIds) {
+  const response = await got.get(`https://api.figma.com/v1/images/${figmaFileKey}`, {
+    query: {
+      ids: componentIds,
+      format: 'svg'
+    },
+    headers: { 'Content-Type': 'application/json', 'x-figma-token': process.env.FIGMA_TOKEN },
+    json: true
   })
+  const { images } = response.body
+  return Promise.all(Object.keys(images).map(async id => {
+    const url = images[id]
+    const res = await got.get(url, { headers: { 'Content-Type': 'images/svg+xml' } })
+    return { url, id, raw: res.body }
+  }))
 }
 
 const hasChanged = (before, after) => {
