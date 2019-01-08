@@ -78,7 +78,7 @@ const hasChanged = (before, after) => {
 
 // Template
 const changeComment = (data) => {
-  return `
+  return `<!-- FIGMA DIFF PROBOT -->
 | Before | After |
 | :-- | :-- |
 ${Object.values(data.before.components).map((b) => {
