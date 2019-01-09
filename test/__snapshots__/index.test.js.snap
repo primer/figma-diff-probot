@@ -15,3 +15,20 @@ Array [
   ],
 ]
 `;
+
+exports[`figma-diff-probot updates the existing comment 1`] = `
+Array [
+  Array [
+    Object {
+      "body": "<!-- FIGMA DIFF PROBOT -->
+| Before | After |
+| :-- | :-- |
+| **Name:** \`heart\`<br>**Description:** \`keywords: love, beat\`  [<img src=\\"https://images.com/before\\" height=\\"200\\"/>](https://images.com/before) | **Name:** \`heart\`<br>**Description:** \`keywords: love, beat\`  [<img src=\\"https://images.com/after\\" height=\\"200\\"/>](https://images.com/after) |",
+      "comment_id": undefined,
+      "number": 1,
+      "owner": "primer",
+      "repo": "octicons",
+    },
+  ],
+]
+`;
