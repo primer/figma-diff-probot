@@ -1,4 +1,5 @@
 const got = require('got')
+const findExistingComment = require('./lib/find-existing-comment')
 
 async function getFigmaComponents (figmaFileKey) {
   const response = await got.get(`https://api.figma.com/v1/files/${figmaFileKey}`, {
@@ -52,13 +53,25 @@ const hasChanged = (before, after) => {
 
 // Template
 const changeComment = (data) => {
-  return `
+  return `<!-- FIGMA DIFF PROBOT -->
 | Before | After |
 | :-- | :-- |
 ${Object.values(data.before.components).map((b) => {
   const a = data.after.components[b.id]
   return `| **Name:** \`${b.name}\`<br>**Description:** \`${b.description}\`  [<img src="${b.image.url}" height="200"/>](${b.image.url}) | **Name:** \`${a.name}\`<br>**Description:** \`${a.description}\`  [<img src="${a.image.url}" height="200"/>](${a.image.url}) |`
 }).join('\n')}`
+}
+
+async function createOrUpdateComment (context, params) {
+  const existingComment = await findExistingComment(context)
+  if (existingComment) {
+    return context.github.issues.editComment(context.issue({
+      comment_id: existingComment.id,
+      body: params.body
+    }))
+  } else {
+    return context.github.issues.createComment(params)
+  }
 }
 
 module.exports = robot => {
@@ -112,7 +125,7 @@ module.exports = robot => {
 
       const params = context.issue({body: changeComment(data)})
 
-      return context.github.issues.createComment(params)
+      return createOrUpdateComment(context, params)
     }
   })
 }

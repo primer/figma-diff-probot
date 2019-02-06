@@ -27,7 +27,9 @@ describe('figma-diff-probot', () => {
         get: jest.fn(() => Promise.resolve({ data: diff }))
       },
       issues: {
-        createComment: jest.fn()
+        createComment: jest.fn(),
+        listComments: jest.fn(() => Promise.resolve({ data: [] })),
+        editComment: jest.fn()
       }
     }
 
@@ -68,6 +70,17 @@ describe('figma-diff-probot', () => {
 
     expect(github.issues.createComment).toHaveBeenCalled()
     expect(github.issues.createComment.mock.calls).toMatchSnapshot()
+  })
+
+  it('updates the existing comment', async () => {
+    github.issues.listComments.mockReturnValueOnce(Promise.resolve({ data: [
+      { user: { type: 'Bot' }, body: '<!-- FIGMA DIFF PROBOT --> Hi!' }
+    ] }))
+    await robot.receive(event)
+
+    expect(github.issues.createComment).not.toHaveBeenCalled()
+    expect(github.issues.editComment).toHaveBeenCalled()
+    expect(github.issues.editComment.mock.calls).toMatchSnapshot()
   })
 
   it('does not create a comment if there are no differences', async () => {
